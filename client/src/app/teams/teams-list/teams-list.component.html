@@ -50,7 +50,7 @@
             <td>{{team.nickname}}</td>
             <td>{{team.stadiumName}}</td>
             <td class="text-center active">
-              <button class="btn btn-sm btn-primary" type="button" [routerLink]="['/home']">
+              <button class="btn btn-sm btn-primary" type="button" [routerLink]="['/teams/update/', team._id]">
                 <i class="fa fa-pencil"></i>
               </button>
             </td>

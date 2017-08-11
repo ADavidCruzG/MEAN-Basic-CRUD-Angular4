@@ -18,7 +18,7 @@ const appRoutes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'teams/create', component: TeamsCreateComponent},
-  {path: 'teams/update', component: TeamsUpdateComponent},
+  {path: 'teams/update/:id', component: TeamsUpdateComponent},
   {path: 'teams/list', component: TeamsListComponent},
 ];
 
