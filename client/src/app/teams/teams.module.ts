@@ -12,11 +12,14 @@ import { TeamsCreateComponent } from './teams-create/teams-create.component';
 import { TeamsUpdateComponent } from './teams-update/teams-update.component';
 import { TeamsListComponent } from './teams-list/teams-list.component';
 
+import { OrderByPipe } from './teams-list/teams-list.component';
+
 const appRoutes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'teams/create', component: TeamsCreateComponent},
-  {path: 'teams/list', component: TeamsListComponent}
+  {path: 'teams/update', component: TeamsUpdateComponent},
+  {path: 'teams/list', component: TeamsListComponent},
 ];
 
 @NgModule({
@@ -30,7 +33,8 @@ const appRoutes = [
     HomeComponent,
     TeamsCreateComponent,
     TeamsUpdateComponent,
-    TeamsListComponent
+    TeamsListComponent,
+    OrderByPipe
   ],
   providers: [
     TeamsService,
@@ -40,7 +44,8 @@ const appRoutes = [
     HomeComponent,
     TeamsCreateComponent,
     TeamsUpdateComponent,
-    TeamsListComponent
+    TeamsListComponent,
+    OrderByPipe
   ]
 })
 export class TeamsModule { }

@@ -1,3 +1,74 @@
-<p>
-  teams-list works!
-</p>
+<div class="row margin-top-15">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="text-center responsive-text">Listado de equipos</h6>
+    </div>
+    <div class="panel-body">
+      <div *ngIf="teamsList.length > 0" class="table-responsive margin-top-20">
+        <table class="table table-stylish">
+          <thead>
+          <tr>
+            <th class="center no-border">#</th>
+            <th class="no-border" (click)="sortTable('name')">Nombre <a style="cursor: pointer">
+              <i class="fa"
+                 [ngClass]="{'fa-sort': columnFilter != 'name',
+                        'fa-sort-asc': (columnFilter == 'name' && !isDesc),
+                        'fa-sort-desc': (columnFilter == 'name' && isDesc) }">
+              </i></a>
+            </th>
+            <th class="no-border" (click)="sortTable('foundationYear')">Fundación <a style="cursor: pointer">
+              <i class="fa"
+                 [ngClass]="{'fa-sort': columnFilter != 'foundationYear',
+                        'fa-sort-asc': (columnFilter == 'foundationYear' && !isDesc),
+                        'fa-sort-desc': (columnFilter == 'foundationYear' && isDesc) }">
+              </i></a>
+            </th>
+            <th class="no-border" (click)="sortTable('nickname')">Apodo <a style="cursor: pointer">
+              <i class="fa"
+                 [ngClass]="{'fa-sort': columnFilter != 'nickname',
+                        'fa-sort-asc': (columnFilter == 'nickname' && !isDesc),
+                        'fa-sort-desc': (columnFilter == 'nickname' && isDesc) }">
+              </i></a>
+            </th>
+            <th class="no-border" (click)="sortTable('stadiumName')">Estadio <a style="cursor: pointer">
+              <i class="fa"
+                 [ngClass]="{'fa-sort': columnFilter != 'stadiumName',
+                        'fa-sort-asc': (columnFilter == 'stadiumName' && !isDesc),
+                        'fa-sort-desc': (columnFilter == 'stadiumName' && isDesc) }">
+              </i></a>
+            </th>
+            <th class="no-border active text-center">Editar</th>
+            <th class="no-border active text-center">Eliminar</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let team of teamsList | orderBy: {columnFilter: columnFilter, filterDirection: filterDirection};
+          trackBy: trackById(i, team); let i = index">
+            <td class="center">{{i + 1}}</td>
+            <td>{{team.name}}</td>
+            <td>{{team.foundationYear}}</td>
+            <td>{{team.nickname}}</td>
+            <td>{{team.stadiumName}}</td>
+            <td class="text-center active">
+              <button class="btn btn-sm btn-primary" type="button" [routerLink]="['/home']">
+                <i class="fa fa-pencil"></i>
+              </button>
+            </td>
+            <td class="text-center active">
+              <button class="btn btn-sm btn-danger" type="button" [routerLink]="['/home']">
+                <i class="fa fa-times"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="teamsList.length == 0" class="text-center">
+        <h6>No hay registros</h6>
+      </div>
+      <div *ngIf="teamsList.length > 0" class="pull-right box">
+        <span>Total de equipos: </span><span class="badge btn-success">{{total}}</span>
+      </div>
+    </div>
+  </div>
+</div>
