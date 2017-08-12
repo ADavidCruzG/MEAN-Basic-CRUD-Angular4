@@ -1,3 +1,5 @@
+<app-modal [modalTitle]="modalTitle" [modalBody]="modalBody"
+           [confirmBtn]="deleteTeam"></app-modal>
 <div class="row margin-top-15">
   <div class="panel panel-primary">
     <div class="panel-heading">
@@ -55,7 +57,8 @@
               </button>
             </td>
             <td class="text-center active">
-              <button class="btn btn-sm btn-danger" type="button" [routerLink]="['/home']">
+              <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#myModal"
+                      (click)="openModal(team, i)">
                 <i class="fa fa-times"></i>
               </button>
             </td>
@@ -67,7 +70,7 @@
         <h6>No hay registros</h6>
       </div>
       <div *ngIf="teamsList.length > 0" class="pull-right box">
-        <span>Total de equipos: </span><span class="badge btn-success">{{total}}</span>
+        <span>Total de equipos: </span><span class="badge btn-success">{{teamsList.length}}</span>
       </div>
     </div>
   </div>

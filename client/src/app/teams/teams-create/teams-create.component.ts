@@ -24,7 +24,7 @@ export class TeamsCreateComponent implements OnInit {
     this.teamsService.createTeam(this.team)
       .then(() => {
         this.toasterService.pop('success', 'Proceso exitoso', 'El equipo se creó exitosamente');
-        this.router.navigate(['home']);
+        this.router.navigate(['/teams/list']);
       }, (err) => {
         this.toasterService.pop('error', 'Error', 'Error: ' + err.toString());
         console.log(err);

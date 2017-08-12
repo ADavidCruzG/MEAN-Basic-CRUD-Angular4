@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Pipe, PipeTransform} from '@angular/core';
-import {Router} from '@angular/router';
 import {TeamsService} from '../teams.service';
 import {ToasterService} from 'angular2-toaster';
 
@@ -13,14 +12,23 @@ import {ToasterService} from 'angular2-toaster';
 export class TeamsListComponent implements OnInit {
 
   teamsList = [];
-  total = 0;
+
+  //Team to delete
+  teamToDelete = {_id: '', name: ''};
+  teamIndex = 0;
 
   //Filters
   isDesc = false;
   columnFilter = 'name';
   filterDirection: number;
 
-  constructor(private teamsService: TeamsService, private router: Router, private toasterService: ToasterService) { }
+  //Modal
+  modalTitle = 'Eliminar equipo';
+  modalBody = '';
+
+  constructor(private teamsService: TeamsService, private toasterService: ToasterService) {
+    this.deleteTeam = this.deleteTeam.bind(this);
+  }
 
   ngOnInit() {
     this.getAllTeams();
@@ -29,8 +37,9 @@ export class TeamsListComponent implements OnInit {
   getAllTeams() {
     this.teamsService.getAllTeams()
       .then((teams) => {
-        this.teamsList = Object.keys(teams).map((key) => { return teams[key]});
-        this.total = this.teamsList.length;
+        this.teamsList = Object.keys(teams).map((key) => {
+          return teams[key]
+        });
       }, (err) => {
         this.toasterService.pop('error', 'Error', 'Error: ' + err.toString());
         console.log(err);
@@ -46,20 +55,37 @@ export class TeamsListComponent implements OnInit {
   trackById(index, team) {
     return team ? team._id : undefined;
   }
+
+  openModal(teamToDelete, index){
+    this.modalBody = '¿Realmente desaea eliminar el equipo ' + teamToDelete.name + '?';
+    this.teamToDelete = teamToDelete;
+    this.teamIndex = index;
+  }
+
+  deleteTeam() {
+    this.teamsService.deleteTeam(this.teamToDelete._id)
+      .then((response) => {
+        this.toasterService.pop('success', 'Proceso exitoso', 'El equipo ' + this.teamToDelete.name + ' se eliminó exitosamente');
+      }, (err) => {
+        this.toasterService.pop('error', 'Error', 'Error: ' + err.toString());
+        console.log(err);
+      });
+    this.teamsList.splice(this.teamIndex, 1);
+  }
 }
 
-@Pipe({  name: 'orderBy' })
+@Pipe({name: 'orderBy'})
 export class OrderByPipe implements PipeTransform {
 
   transform(teamsRecords: Array<any>, args?: any): any {
-    return teamsRecords.sort(function(a, b){
-      if(a[args.columnFilter] < b[args.columnFilter]){
+    return teamsRecords.sort(function (a, b) {
+      if (a[args.columnFilter] < b[args.columnFilter]) {
         return -1 * args.filterDirection;
       }
-      else if( a[args.columnFilter] > b[args.columnFilter]){
+      else if (a[args.columnFilter] > b[args.columnFilter]) {
         return args.filterDirection;
       }
-      else{
+      else {
         return 0;
       }
     });

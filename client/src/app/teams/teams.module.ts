@@ -11,6 +11,7 @@ import { HomeComponent } from '../home/home.component';
 import { TeamsCreateComponent } from './teams-create/teams-create.component';
 import { TeamsUpdateComponent } from './teams-update/teams-update.component';
 import { TeamsListComponent } from './teams-list/teams-list.component';
+import { ModalComponent } from '../modal/modal.component';
 
 import { OrderByPipe } from './teams-list/teams-list.component';
 
@@ -34,6 +35,7 @@ const appRoutes = [
     TeamsCreateComponent,
     TeamsUpdateComponent,
     TeamsListComponent,
+    ModalComponent,
     OrderByPipe
   ],
   providers: [
@@ -45,6 +47,7 @@ const appRoutes = [
     TeamsCreateComponent,
     TeamsUpdateComponent,
     TeamsListComponent,
+    ModalComponent,
     OrderByPipe
   ]
 })
