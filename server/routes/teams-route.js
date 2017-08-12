@@ -50,7 +50,7 @@ router.put('/:id', (req, res, next) => {
     });
 });
 
-/* DELETE teamd. */
+/* DELETE team. */
 router.delete('/:id', (req, res, next) => {
     teamModel.findByIdAndRemove(req.params.id, (err, dbResponse) => {
         if (err) {

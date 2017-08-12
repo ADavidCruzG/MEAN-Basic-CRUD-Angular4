@@ -1,0 +1,110 @@
+<form (ngSubmit)="updateTeam()" #teamUpdateForm="ngForm">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="text-center responsive-text">Editar equipo - {{team.name}}</h6>
+    </div>
+    <div class="panel-body">
+      <div class="form-group col-sm-6">
+        <label class="control-label" for="name">Nombre</label>
+        <span class="input-icon">
+          <input id="name" class="form-control" placeholder="Nombre"
+                 [(ngModel)]="team.name" name="Name" required minlength="4"
+                 #name="ngModel">
+          <i class="fa fa-id-card-o"></i>
+        </span>
+        <div *ngIf="name.errors && (name.dirty || name.touched)"
+             class="alert alert-danger">
+                <span class="input-icon">
+                <div [hidden]="!name.errors.required">
+                  <i class="fa fa-times-circle"></i>
+                  El nombre es obligatorio.
+                </div>
+                <div [hidden]="!name.errors.minlength">
+                  <i class="fa fa-exclamation-circle"></i>
+                  El nombre debe tener al menos 4 caracteres.
+                </div>
+                </span>
+        </div>
+      </div>
+      <div class="form-group col-sm-6">
+        <label class="control-label" for="nickname">Apodo</label>
+        <span class="input-icon">
+          <input id="nickname" class="form-control" placeholder="Apodo"
+                 [(ngModel)]="team.nickname" name="Nickname" required minlength="3"
+                 #nickname="ngModel">
+          <i class="fa fa-id-card-o"></i>
+        </span>
+        <div *ngIf="nickname.errors && (nickname.dirty || nickname.touched)"
+             class="alert alert-danger">
+                <span class="input-icon">
+                <div [hidden]="!nickname.errors.required">
+                  <i class="fa fa-times-circle"></i>
+                  El apodo es obligatorio.
+                </div>
+                <div [hidden]="!nickname.errors.minlength">
+                  <i class="fa fa-exclamation-circle"></i>
+                  El apodo debe ser de al menos 3 caracteres.
+                </div>
+                </span>
+        </div>
+      </div>
+      <div class="form-group col-sm-6">
+        <label class="control-label" for="foundationYear">Año de fundación</label>
+        <span class="input-icon">
+          <input type="number" id="foundationYear" class="form-control" placeholder="Año de fundación"
+                 [(ngModel)]="team.foundationYear" name="Foundation Year" min="1800" max="{{currentYear}}" required
+                 pattern="^[0-9]{4}$" #foundationYear="ngModel">
+          <i class="fa fa-birthday-cake"></i>
+        </span>
+        <div *ngIf="foundationYear.errors && (foundationYear.dirty || foundationYear.touched)"
+             class="alert alert-danger">
+            <span class="input-icon">
+                <div [hidden]="!foundationYear.errors.required">
+                  <i class="fa fa-times-circle"></i>
+                  El año de fundación es obligatorio.
+                </div>
+                <div [hidden]="!foundationYear.errors.pattern">
+                  <i class="fa fa-exclamation-circle"></i>
+                  Escriba el año con 4 dígitos.
+                </div>
+            </span>
+        </div>
+        <div [hidden]="foundationYear.value >= 1800 && foundationYear.value <= currentYear" class="alert alert-warning">
+            <span class="input-icon">
+                <div>
+                  <i class="fa fa-exclamation-circle"></i>
+                  Desde 1800 hasta {{currentYear}}.
+                </div>
+            </span>
+        </div>
+      </div>
+      <div class="form-group col-sm-6">
+        <label class="control-label" for="stadiumName">Estadio</label>
+        <span class="input-icon">
+          <input id="stadiumName" class="form-control" placeholder="Estadio"
+                 [(ngModel)]="team.stadiumName" name="Stadium Name" required #stadiumName="ngModel">
+          <i class="fa fa-home"></i>
+        </span>
+        <div *ngIf="stadiumName.errors && (stadiumName.dirty || stadiumName.touched)"
+             class="alert alert-danger">
+          <span class="input-icon">
+                <div [hidden]="!stadiumName.errors.required">
+                  <i class="fa fa-times-circle"></i>
+                  El estadio es obligatorio.
+                </div>
+          </span>
+        </div>
+      </div>
+      <div class="form-group text-center col-sm-12 margin-top-15">
+        <button class="btn btn-primary" [disabled]="!teamUpdateForm.form.valid">
+          <i class="fa fa-floppy-o"></i>
+          <span class="hidden-xs"><b>Actualizar equipo</b></span>
+        </button>
+        <button class="btn btn-default" type="button" [routerLink]="['/teams/list']">
+          <i class="fa fa-ban"></i>
+          <span class="hidden-xs"><b>Cancelar</b></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

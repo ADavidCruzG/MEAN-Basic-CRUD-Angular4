@@ -1,0 +1,27 @@
+<div class="container">
+  <toaster-container [toasterconfig]="toasterConfig"></toaster-container>
+  <div class="row">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainNav">
+            <i class="fa fa-bars"></i>
+          </button>
+          <a class="navbar-brand">CRUD básico</a>
+        </div>
+        <div id="mainNav" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/home']">Inicio</a></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['teams/list']">Listado de equipos</a></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['teams/create']">Crear equipo</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div id="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
